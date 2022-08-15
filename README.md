@@ -13,13 +13,19 @@ ViewModel 是介于View与Model之间的桥梁，可以使数据与视图分离�
 
 ###### 3、简单使用
 
-###### 4、小结
 
 
-todo 顺序
-1、viewModel
-2、liveData
+-----------------
+参考文章：https://cloud.tencent.com/developer/article/2034154
 
-4、生命周期感知组件综合总结
+todo ：
+
+- ViewModel的生命周期
+- 与onSavedInstance的用途区别
+- 其他获取方式
+
+
+
+生命周期感知组件综合总结
 
 [官方文档](https://developer.android.google.cn/topic/libraries/architecture/lifecycle)

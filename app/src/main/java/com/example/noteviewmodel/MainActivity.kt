@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("MainActivity","onCreate")
-
+        //todo 探究下： 这两行不加 达不到预期效果？？？
         tv1.text = "CommonData:${commonData.num}"
         tv2.text =  "ViewModelData:${mainViewModel.number}"
 
