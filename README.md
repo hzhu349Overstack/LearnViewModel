@@ -15,7 +15,7 @@ ViewModel 是介于View与Model之间的桥梁，可以使数据与视图分离�
 
 通过一个例子，来说明ViewModel的生命周期独立于activity，即使Activity销毁ViewModel依然存活。大致效果如下，每次点击按钮二者计数器+1，旋转屏幕则可验证结果。
 
-[screenshot-test1.png](https://gitee.com/sunnnydaydev/my-pictures/raw/master/github/viewmodel/screenshot-test1.png)
+![screenshot-test1.png](https://gitee.com/sunnnydaydev/my-pictures/raw/master/github/viewmodel/screenshot-test1.png)
 
 ```kotlin
 /**
@@ -131,7 +131,7 @@ ViewModel提供了一个内部类，默认实现了Factory，我们可以直接�
 
 来看看官方给的一张图~
 
-[ViewModel.png](https://gitee.com/sunnnydaydev/my-pictures/raw/master/github/viewmodel/viewmodel.png)
+![ViewModel.png](https://gitee.com/sunnnydaydev/my-pictures/raw/master/github/viewmodel/viewmodel.png)
 
 
 参考文章：https://cloud.tencent.com/developer/article/2034154
