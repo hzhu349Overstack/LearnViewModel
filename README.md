@@ -131,7 +131,7 @@ ViewModel提供了一个内部类，默认实现了Factory，我们可以直接�
 
 来看看官方给的一张图~
 
-[viewmodel.png](https://gitee.com/sunnnydaydev/my-pictures/raw/master/github/viewmodel/viewmodel.png)
+[ViewModel.png](https://gitee.com/sunnnydaydev/my-pictures/raw/master/github/viewmodel/viewmodel.png)
 
 
 参考文章：https://cloud.tencent.com/developer/article/2034154
