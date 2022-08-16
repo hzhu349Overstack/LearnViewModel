@@ -10,14 +10,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private val commonData = CommonData()
     private val mainViewModel  by lazy {
-        ViewModelProvider(this,ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+      //  ViewModelProvider(this,ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+
+        ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
     }
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("MainActivity","onCreate")
-        //todo 探究下： 这两行不加 达不到预期效果？？？
+        /**
+         * 给界面初始化初始值。注意ViewModel需要在这里试用下，否则达不到预期效果。
+         */
         tv1.text = "CommonData:${commonData.num}"
         tv2.text =  "ViewModelData:${mainViewModel.number}"
 
