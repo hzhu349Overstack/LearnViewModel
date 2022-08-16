@@ -10,9 +10,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private val commonData = CommonData()
     private val mainViewModel  by lazy {
-      //  ViewModelProvider(this,ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
-
-        ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
+        ViewModelProvider(this,ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+     //   ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
     }
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {

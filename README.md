@@ -133,17 +133,28 @@ ViewModel提供了一个内部类，默认实现了Factory，我们可以直接�
 
 ![ViewModel.png](https://gitee.com/sunnnydaydev/my-pictures/raw/master/github/viewmodel/viewmodel.png)
 
+可以看到屏幕的旋转、activity调用finish时ViewModel的生命周期一直是存活状态，当finish状态时可以理解为activity与ViewModel都
+不需要使用了这时ViewMode销毁，然后回调onCleared方法。
 
-参考文章：https://cloud.tencent.com/developer/article/2034154
+基于ViewModel生命周期这个特点我们可以使用ViewModel来进行Fragment之间的数据共享。 ViewModel能将数据从Activity中剥离处理，只要Activity不销毁，ViewModel就一直存在，基于这些特性，多个Fragment 可以使用其 Activity 范围共享 ViewModel 来处理此类通信。
 
-todo ：
+官方建议ViewModel不要持有Context引用，若是想要持有Context引用可以使用AndroidViewModel类，它继承自ViewModel，并接收Application作为Context，因此它的生命周期和应用Application的生命周期一样，不会导致内存泄漏，同时可以处理特定场景的数据问题。
 
-- ViewModel的生命周期
-- 与onSavedInstance的用途区别
+
+
+###### 5、ViewModel与onSaveInstanceState()的对比
+
+通常我们使用onSaveInstanceState()来解决屏幕旋转带来的数据丢失问题，但是它只能保存少量的支持序列化的数据，ViewModel支持页面中的所有数据。
+需要注意的是，ViewModel不支持数据的持久化，当界面彻底销毁时，ViewModel及所持有的数据就不存在了，onSaveInstanceState()没有这个限制，可以持久化页面的数据，两者用途不一。
+
+###### 6、ViewModel其他获取方式
+
+参考 https://www.jianshu.com/p/9052c5e5ce89
+
+todo
+
 - 其他获取方式
 
-
-
-生命周期感知组件综合总结
+- lifecycle生命周期感知组件综合总结
 
 [官方文档](https://developer.android.google.cn/topic/libraries/architecture/lifecycle)
