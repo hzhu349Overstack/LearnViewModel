@@ -160,10 +160,82 @@ ViewModel提供了一个内部类，默认实现了Factory，我们可以直接�
 private val viewModel: MainViewModel by activityViewModels()
 ```
 
-这样View就可在
+这样在ViewModel的生命周期内，ViewModel就可在Activity与Fragment中共享统一实例了。举个例子，很简单一个activity内添加两个fragment：
 
+```kotlin
+class NewsActivity : AppCompatActivity() {
+    private val mainViewModel1: MainViewModel by viewModels()
+    private val mainViewModel2 by lazy {
+        ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_news)
+        mainViewModel1.pageName = "Hello"
 
+        Log.d("ViewModel","NewsActivity-mainViewModel1:${mainViewModel1}")
+        Log.d("ViewModel","NewsActivity-mainViewModel2:${mainViewModel2}")
+    }
+}
+```
+```kotlin
+class ListFragment : Fragment() {
+    private val listViewModel1: MainViewModel by activityViewModels() // viewModel() 不可否则会产生新的对象
+    private val listViewModel3: MainViewModel by activityViewModels()
+    private val listViewModel2 by lazy { //不可用这种方案 会产生新的对象
+        ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        Log.d("ViewModel","ListFragment-listViewModel1:${listViewModel1}")
+        Log.d("ViewModel","ListFragment-listViewModel2:${listViewModel2}")
+        Log.d("ViewModel","ListFragment-listViewModel3:${listViewModel3}")
+        return inflater.inflate(R.layout.fragment_list, container, false)
+    }
+}
+```
 
-- lifecycle生命周期感知组件综合总结
+```kotlin
+class MenuFragment : Fragment() {
+
+    private val menuViewModel1: MainViewModel by viewModels()
+    private val menuViewModel2 by lazy {
+        ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        Log.d("ViewModel","MenuFragment-menuViewModel1:${menuViewModel1}")
+        Log.d("ViewModel","MenuFragment-menuViewModel2:${menuViewModel2}")
+        return inflater.inflate(R.layout.fragment_menu, container, false)
+    }
+}
+```
+
+log如下：
+
+D/ViewModel: NewsActivity-mainViewModel1:news.MainViewModel@663ee90
+D/ViewModel: NewsActivity-mainViewModel2:news.MainViewModel@663ee90
+
+ D/ViewModel: MenuFragment-menuViewModel1:news.MainViewModel@5d12f92
+ D/ViewModel: MenuFragment-menuViewModel2:news.MainViewModel@5d12f92
+
+ D/ViewModel: ListFragment-listViewModel1:news.MainViewModel@663ee90
+ D/ViewModel: ListFragment-listViewModel2:news.MainViewModel@e9ca389 // 注意这里获取的方式
+ D/ViewModel: ListFragment-listViewModel3:news.MainViewModel@663ee90
+
+可见：
+
+- 使用viewModels()或者ViewModelProvider方案获取ViewModel时activity中与Fragment中获取的实例是不同的。（对比NewsActivity与MenuFragment）
+- 使用activityViewModels获取的ViewModel的实例是activity与fragment之间共享的实例。
+
+###### 7、viewModels 与activityViewModels的获取区别
+
+todo：可能需要浅看源码
 
 [官方文档](https://developer.android.google.cn/topic/libraries/architecture/lifecycle)
