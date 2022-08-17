@@ -149,11 +149,20 @@ ViewModel提供了一个内部类，默认实现了Factory，我们可以直接�
 
 ###### 6、ViewModel其他获取方式
 
-参考 https://www.jianshu.com/p/9052c5e5ce89
+首先需要添加依赖
+```groovy
+    implementation "androidx.fragment:fragment-ktx:1.5.0"
+    implementation "androidx.activity:activity-ktx:1.5.0"
+```
+然后直接使用即可
+```kotlin
+//MainViewModel 为自定义的ViewModel
+private val viewModel: MainViewModel by activityViewModels()
+```
 
-todo
+这样View就可在
 
-- 其他获取方式
+
 
 - lifecycle生命周期感知组件综合总结
 
