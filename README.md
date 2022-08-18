@@ -220,18 +220,23 @@ class MenuFragment : Fragment() {
 log如下：
 
 D/ViewModel: NewsActivity-mainViewModel1:news.MainViewModel@663ee90
+
 D/ViewModel: NewsActivity-mainViewModel2:news.MainViewModel@663ee90
 
- D/ViewModel: MenuFragment-menuViewModel1:news.MainViewModel@5d12f92
- D/ViewModel: MenuFragment-menuViewModel2:news.MainViewModel@5d12f92
+D/ViewModel: MenuFragment-menuViewModel1:news.MainViewModel@5d12f92
 
- D/ViewModel: ListFragment-listViewModel1:news.MainViewModel@663ee90
- D/ViewModel: ListFragment-listViewModel2:news.MainViewModel@e9ca389 // 注意这里获取的方式
- D/ViewModel: ListFragment-listViewModel3:news.MainViewModel@663ee90
+D/ViewModel: MenuFragment-menuViewModel2:news.MainViewModel@5d12f92
+
+D/ViewModel: ListFragment-listViewModel1:news.MainViewModel@663ee90
+
+D/ViewModel: ListFragment-listViewModel2:news.MainViewModel@e9ca389 // 注意这里获取的方式
+
+D/ViewModel: ListFragment-listViewModel3:news.MainViewModel@663ee90
 
 可见：
 
 - 使用viewModels()或者ViewModelProvider方案获取ViewModel时activity中与Fragment中获取的实例是不同的。（对比NewsActivity与MenuFragment）
+
 - 使用activityViewModels获取的ViewModel的实例是activity与fragment之间共享的实例。
 
 ###### 7、viewModels 与activityViewModels的获取区别
