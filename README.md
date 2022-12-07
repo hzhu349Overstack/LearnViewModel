@@ -164,6 +164,7 @@ private val viewModel: MainViewModel by activityViewModels()
 
 ```kotlin
 class NewsActivity : AppCompatActivity() {
+    //viewModels()方法可接受自定义的ViewModelProvider.Factory对象，这样重写create方法可以提供自定义的viewModel对象。这里使用默认方式。
     private val mainViewModel1: MainViewModel by viewModels()
     private val mainViewModel2 by lazy {
         ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
