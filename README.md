@@ -240,8 +240,55 @@ D/ViewModel: ListFragment-listViewModel3:news.MainViewModel@663ee90
 
 - 使用activityViewModels获取的ViewModel的实例是activity与fragment之间共享的实例。
 
-###### 7、viewModels 与activityViewModels的获取区别
 
-todo：可能需要浅看源码
+###### 7、viewModels { viewModelFactory }的用法
+
+这里结合Dagger综合运用下->
+
+```kotlin
+class MainViewModel @Inject constructor():ViewModel()
+```
+
+```kotlin
+/**
+ * Create by SunnyDay /12/07 10:07:15
+ * 工具类:ViewModel工厂，自己实现ViewModel的创建
+ */
+class ViewModelFactory<T>@Inject constructor(
+    private val modelProvider: Provider<T>)
+    :ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T = modelProvider.get() as T
+}
+```
+
+```kotlin
+@Component
+interface ApplicationComponent {
+     //产生MainViewModel
+     fun getMainViewModelFactory():ViewModelFactory<MainViewModel>
+     //这里还可以定义产生其他ViewModel的方法。
+}
+```
+
+```kotlin
+class DaggerBasicActivity : AppCompatActivity() {
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_dagger_basic)
+
+        val daggerContainer = (application as MyApplication).getDaggerContainer()
+        // 获取ViewModel
+        val mainModel:MainViewModel by viewModels {
+          daggerContainer.getMainViewModelFactory()
+        }
+        println("获取ViewModel:$mainModel")
+    }
+}
+```
+
+###### 8、viewModels 与activityViewModels的获取区别
+
 
 [官方文档](https://developer.android.google.cn/topic/libraries/architecture/lifecycle)
